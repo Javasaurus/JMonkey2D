@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/Game_Dev/JMonkey/projects/Platformer/assets/Sprites/Shaders/SimpleSprite.vert</file>
+            <file>file:/D:/Game_Dev/JMonkey/projects/Platformer/assets/Sprites/SpriteMaterial.j3m</file>
+            <file>file:/D:/Game_Dev/JMonkey/projects/Platformer/src/platformer/Main.java</file>
+            <file>file:/D:/Game_Dev/JMonkey/projects/Platformer/assets/Sprites/SimpleSprite.j3md</file>
+            <file>file:/D:/Game_Dev/JMonkey/projects/Platformer/assets/Sprites/Shaders/SimpleSprite.frag</file>
+            <file>file:/D:/Game_Dev/JMonkey/projects/Platformer/src/platformer/control/SpriteManager.java</file>
+            <file>file:/D:/Game_Dev/JMonkey/projects/Platformer/assets/Sprites/Shaders/Refract.vert</file>
+            <file>file:/D:/Game_Dev/JMonkey/projects/Platformer/src/platformer/model/Sprite.java</file>
+            <file>file:/D:/Game_Dev/JMonkey/projects/Platformer/src/platformer/model/AnimatedSprite.java</file>
+            <file>file:/D:/Game_Dev/JMonkey/projects/Platformer/src/platformer/model/AnimationData.java</file>
+            <file>file:/D:/Game_Dev/JMonkey/projects/Platformer/assets/Sprites/Shaders/Refract.frag</file>
+            <file>file:/D:/Game_Dev/JMonkey/projects/Platformer/src/platformer/model/SpriteData.java</file>
+        </group>
+    </open-files>
+</project-private>

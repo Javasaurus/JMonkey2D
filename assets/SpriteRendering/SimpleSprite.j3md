@@ -1,0 +1,72 @@
+MaterialDef SimpleSprite {
+ 
+    MaterialParameters {
+
+        // The texture to render (entire spritesheet)
+        Texture2D AniTexMap
+        // Int to indicate if the animation should loop (1 or 0)
+        Int loop
+        // The first tile of the animation to play (OR the sprite location on the sheet)
+        Int startingTile
+        // The animation length (is typically 1 in case of static sprites, did not seem to affect 
+        Int animationLength
+        // Number of Tiles U = the amount of columns
+        Int numTilesU
+        // Number of Tiles V = the amount of rows
+        Int numTilesV
+        // The animation speed (todo turn into a float)
+        Int Speed
+        
+        // Fog
+        Color FogColor
+        TextureCubeMap FogSkyBox
+
+        // Multiply Color system
+        Color Multiply_Color
+
+        // For hardware skinning
+        Int NumberOfBones
+        Matrix4Array BoneMatrices
+
+        // Refraction Filter
+        Boolean DoRefract : False
+        Float Distance : 200.0
+        Texture2D Mask_Texture        
+    }
+ 
+    Technique {
+          VertexShader GLSL100:   SpriteRendering/Shaders/SimpleSprite.vert
+          FragmentShader GLSL100: SpriteRendering/Shaders/SimpleSprite.frag
+ 
+        WorldParameters {
+            WorldViewProjectionMatrix
+            Time
+        }
+ 
+        Defines {
+
+            MULTIPLY_COLOR : Multiply_Color
+            FOG : FogColor
+            FOG_SKY : FogSkyBox
+            NUM_BONES : NumberOfBones
+            
+        }
+    }
+
+ Technique Refract {
+
+VertexShader GLSL100:   SpriteRendering/Shaders/Refract.vert
+FragmentShader GLSL100: SpriteRendering/Shaders/Refract.frag
+
+WorldParameters {
+WorldViewProjectionMatrix
+}
+
+Defines {
+DO_REFRACT : DoRefract
+MASK_TEXTURE : Mask_Texture
+NUM_BONES : NumberOfBones
+}
+}
+
+}

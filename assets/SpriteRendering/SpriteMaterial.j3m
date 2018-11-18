@@ -1,0 +1,15 @@
+Material SpriteMaterial : SpriteRendering/SimpleSprite.j3md {
+     MaterialParameters {
+        AniTexMap : Flip Repeat Textures/SimpleSprite_1.png
+        loop:1
+        startingTile:0
+        animationLength:8
+        numTilesU : 8
+        numTilesV : 1
+        Speed : 10
+     }
+    AdditionalRenderState {
+      Blend Alpha
+      Wireframe Off
+    }
+}

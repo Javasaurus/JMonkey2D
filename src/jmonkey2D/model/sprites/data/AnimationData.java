@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jmonkey2D.model.data;
+package jmonkey2D.model.sprites.data;
 
 /**
  * This class is a simple wrapper for animation parameters with the intent to serialize to json/xml later

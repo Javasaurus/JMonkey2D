@@ -15,7 +15,7 @@
  */
 package jmonkey2D.model.sprites;
 
-import jmonkey2D.model.data.AnimationData;
+import jmonkey2D.model.sprites.data.AnimationData;
 import com.jme3.material.Material;
 import com.jme3.shader.VarType;
 import java.util.HashMap;
@@ -66,7 +66,7 @@ public class AnimatedSprite extends StaticSprite {
      */
     public AnimatedSprite(String name, String spriteSheetPath, AnimationData data) {
         super(name, spriteSheetPath, data);
-
+        setAnimation(data);
     }
 
     /**
@@ -75,7 +75,7 @@ public class AnimatedSprite extends StaticSprite {
      * @param data the animation data
      * @return a boolean indicating if the animation was succesfully added
      */
-    public boolean addAnimation(AnimationData data) {
+    public final boolean addAnimation(AnimationData data) {
         return animationMap.put(data.getAnimationName(), data) != null;
     }
 
@@ -85,7 +85,7 @@ public class AnimatedSprite extends StaticSprite {
      *
      * @param data the animation data
      */
-    public void setAnimation(AnimationData data) {
+    public final void setAnimation(AnimationData data) {
         //get the material
         Material mat1 = getMaterial();
         //set where the sprite can be found on the spritesheet

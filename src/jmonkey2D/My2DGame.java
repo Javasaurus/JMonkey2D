@@ -15,55 +15,73 @@
  */
 package jmonkey2D;
 
+import com.jme3.app.DebugKeysAppState;
+import com.jme3.app.FlyCamAppState;
+import com.jme3.app.StatsAppState;
+import com.jme3.audio.AudioListenerState;
+import jmonkey2D.control.GameObjectPool;
+import jmonkey2D.control.appstate.AnimationState;
+import jmonkey2D.control.appstate.Physics2DState;
 import jmonkey2D.control.system.Simple2DApplication;
-import jmonkey2D.model.sprites.AnimatedSprite;
-import jmonkey2D.model.data.AnimationData;
-import jmonkey2D.model.data.SpriteData;
-import jmonkey2D.model.sprites.StaticSprite;
+import jmonkey2D.model.GameObject;
+import jmonkey2D.model.physics.RigidBody2D;
+import jmonkey2D.model.sprites.data.AnimationData;
+import org.dyn4j.geometry.Rectangle;
 
 public class My2DGame extends Simple2DApplication {
 
     public static void main(String[] args) {
         My2DGame app = new My2DGame();
         app.start();
+
     }
 
-    private AnimatedSprite[] animatedSprites;
+    private static final GameObjectPool GAME_OBJECT_POOL = new GameObjectPool();
+
+    public My2DGame() {
+        super(new StatsAppState(), new FlyCamAppState(), new AudioListenerState(), new DebugKeysAppState(),
+                new AnimationState(GAME_OBJECT_POOL), new Physics2DState(GAME_OBJECT_POOL));
+    }
 
     @Override
     public void simpleInit2DApp() {
-        int movingSprites = 5000;
-        animatedSprites = new AnimatedSprite[movingSprites];
-        for (int i = 0; i < movingSprites; i++) {
-            animatedSprites[i] = new AnimatedSprite("Textures/Sprites.png");
 
-            AnimationData data = new AnimationData("Idle", 5, 5, 0, 25, 2 * i, true);
-            //can set an animation or add multiple to the animated sprite object to pick one later
-            animatedSprites[i].setAnimation(data);
-            animatedSprites[i].setLocalTranslation((float) (-0.5 + Math.random()) * 5f, (float) (-0.5 + Math.random()) * 5f);
-            rootNode.attachChild(animatedSprites[i]);
-        }
-
-        StaticSprite staticSprite = new StaticSprite("TestingSprite", "Textures/Sprites.png", new SpriteData(5, 5, 0));
-        staticSprite.setLocalTranslation(1f, 0f);
-    //    staticSprite.setRenderingLayer(1);
-        rootNode.attachChild(staticSprite);
-
-        staticSprite = new StaticSprite("TestingSprite", "Textures/Sprites.png", new SpriteData(5, 5, 15));
-        staticSprite.setLocalTranslation(-1f, 0f);
-    //    staticSprite.setRenderingLayer(-1);
-        rootNode.attachChild(staticSprite);
     }
+
+    float time = 0;
+    boolean ready = false;
 
     @Override
     public void simpleUpdate(float tpf) {
-        for (AnimatedSprite animatedSprite : animatedSprites) {
-            animatedSprite.rotate2D(tpf * animatedSprite.getCurrentAnimation().getPlaybackSpeed());
-            float x = (float) (Math.cos(getTimer().getTimeInSeconds())) * 2f;
-            float y = (float) (Math.sin(getTimer().getTimeInSeconds())) * 2f;
-            animatedSprite.setLocalTranslation(x, y);
-        }
+        WaitForReady(tpf);
+    }
 
+    public void WaitForReady(float tpf) {
+        if (ready) {
+            return;
+        }
+        time += tpf;
+        if (time > 10f) {
+            time = 0;
+
+            //TODO NEED TO CLEAN THIS UP AND FIX WITH TILED!!!!
+            GameObject floor = GAME_OBJECT_POOL.CreateGameObject();
+            RigidBody2D floorBody = floor.addRigidBody2D(true);
+            floorBody.removeAllFixtures();
+            floorBody.addFixture(new Rectangle(100f, 1f));
+            floorBody.translate(0, -4f);
+
+            GameObject gameObject = GAME_OBJECT_POOL.CreateGameObject();
+            //add a sprite
+            gameObject.addSprite(
+                    "Sprite",
+                    "Textures/Sprites.png",
+                    new AnimationData("Idle", 5, 5, 0, 25, 10, true));
+            //add a rigidbody
+            gameObject.addRigidBody2D(false);
+
+            ready = true;
+        }
     }
 
 }

@@ -15,7 +15,7 @@
  */
 package jmonkey2D.model.sprites;
 
-import jmonkey2D.model.data.SpriteData;
+import jmonkey2D.model.sprites.data.SpriteData;
 import com.jme3.material.Material;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector2f;
@@ -26,6 +26,7 @@ import com.jme3.shader.VarType;
 import static com.jme3.shader.VarType.Texture2D;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
+import com.simsilica.es.EntityComponent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jmonkey2D.control.sprite.SpriteManager;
@@ -35,7 +36,7 @@ import jmonkey2D.control.sprite.SpriteManager;
  *
  * @author DrJavaSaurus <javasaurusdev@gmail.com>
  */
-public class StaticSprite extends Geometry {
+public class StaticSprite extends Geometry implements EntityComponent{
 
     /**
      * The layer the sprite is on value)

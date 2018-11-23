@@ -16,7 +16,7 @@
 package jmonkey2D.model.physics;
 
 import com.simsilica.es.EntityComponent;
-import jmonkey2D.model.sprites.StaticSprite;
+import jmonkey2D.model.sprites.Sprite;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.geometry.Capsule;

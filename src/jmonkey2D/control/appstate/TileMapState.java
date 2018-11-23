@@ -18,23 +18,19 @@ package jmonkey2D.control.appstate;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
-import com.simsilica.es.Entity;
 import com.simsilica.es.EntitySet;
-import java.util.Set;
 import jmonkey2D.control.GameObjectPool;
 import jmonkey2D.control.system.Simple2DApplication;
 import jmonkey2D.model.physics.RigidBody2D;
-import jmonkey2D.model.sprites.AnimatedSprite;
-import jmonkey2D.model.sprites.Sprite;
 import org.dyn4j.dynamics.World;
-import org.dyn4j.geometry.Vector2;
 
 /**
  *
  * @author DrJavaSaurus <javasaurusdev@gmail.com>
  */
-public class Physics2DState extends AbstractAppState {
+public class TileMapState extends AbstractAppState {
 
     /**
      * The dynamics engine
@@ -62,7 +58,7 @@ public class Physics2DState extends AbstractAppState {
      */
     private Node baseNode;
 
-    public Physics2DState(GameObjectPool gameObjectPool) {
+    public TileMapState(GameObjectPool gameObjectPool) {
         this.gameObjectPool = gameObjectPool;
 
     }
@@ -76,57 +72,26 @@ public class Physics2DState extends AbstractAppState {
         this.world = new World();
         setEnabled(true);
         rigidBodies = gameObjectPool.getEntities(RigidBody2D.class);
+        this.application.getCamera().setLocation(new Vector3f(8, 3.5f, this.application.getCamera().getLocation().z));
     }
+
+
 
     @Override
     public void update(float tpf) {
-        //step the world
-        world.update(tpf);
-        //apply changes to the rigidbody set
-        rigidBodies.applyChanges();
-        //add new rigidbodies
-        RegisterNewBodies();
-        //remove old rigidbodies
-        RemoveOldBodies();
-        //sync others
-        SynchronizeBodies();
+
     }
 
     private void RegisterNewBodies() {
-        Set<Entity> addedEntities = rigidBodies.getAddedEntities();
-        for (Entity entity : addedEntities) {
-            RigidBody2D body = (RigidBody2D) entity.get(RigidBody2D.class);
-            this.world.addBody(body);
-            //FOR DEBUGGING
-            body.applyForce(new Vector2(0f, 10f));
-        }
+
     }
 
     private void RemoveOldBodies() {
-        Set<Entity> removedEntities = rigidBodies.getRemovedEntities();
-        for (Entity entity : removedEntities) {
-            RigidBody2D body = (RigidBody2D) entity.get(RigidBody2D.class);
-            this.world.removeBody(body);
-        }
+
     }
 
     private void SynchronizeBodies() {
-        for (Entity entity : rigidBodies) {
 
-            Entity tmp = gameObjectPool.getEntity(entity.getId(), RigidBody2D.class, AnimatedSprite.class, Sprite.class);
-            RigidBody2D body = (RigidBody2D) tmp.getComponents()[0];
-
-            Sprite sprite = (Sprite) (tmp.getComponents()[1] == null ? tmp.getComponents()[2] : tmp.getComponents()[1]);
-
-            float x = (float) body.getWorldCenter().x;
-            float y = (float) body.getWorldCenter().y;
-            float rot = (float) body.getTransform().getRotation();
-
-            if (sprite != null) {
-                sprite.setLocalTranslation(x, y);
-                sprite.rotate2D(rot);
-            }
-        }
     }
 
     @Override
@@ -149,4 +114,5 @@ public class Physics2DState extends AbstractAppState {
     public Node getBaseNode() {
         return baseNode;
     }
+
 }

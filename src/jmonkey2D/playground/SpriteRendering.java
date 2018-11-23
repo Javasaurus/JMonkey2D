@@ -23,10 +23,10 @@ import jmonkey2D.model.GameObject;
 import jmonkey2D.model.sprites.data.AnimationData;
 import jmonkey2D.model.sprites.AnimatedSprite;
 
-public class GameObjectPoolTest extends Simple2DApplication {
+public class SpriteRendering extends Simple2DApplication {
 
     public static void main(String[] args) {
-        GameObjectPoolTest app = new GameObjectPoolTest();
+        SpriteRendering app = new SpriteRendering();
         app.start();
 
     }

@@ -25,7 +25,7 @@ import java.util.Set;
 import jmonkey2D.control.GameObjectPool;
 import jmonkey2D.control.system.Simple2DApplication;
 import jmonkey2D.model.sprites.AnimatedSprite;
-import jmonkey2D.model.sprites.StaticSprite;
+import jmonkey2D.model.sprites.Sprite;
 
 /**
  *
@@ -132,4 +132,7 @@ public class AnimationState extends AbstractAppState {
 
     }
 
+    public Node getBaseNode() {
+        return baseNode;
+    }
 }

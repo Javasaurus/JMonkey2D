@@ -27,8 +27,6 @@ import static com.jme3.shader.VarType.Texture2D;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
 import com.simsilica.es.EntityComponent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jmonkey2D.control.sprite.SpriteManager;
 
 /**
@@ -36,7 +34,7 @@ import jmonkey2D.control.sprite.SpriteManager;
  *
  * @author DrJavaSaurus <javasaurusdev@gmail.com>
  */
-public class StaticSprite extends Geometry implements EntityComponent{
+public class Sprite extends Geometry implements EntityComponent {
 
     /**
      * The layer the sprite is on value)
@@ -52,7 +50,7 @@ public class StaticSprite extends Geometry implements EntityComponent{
      *
      * @param spriteSheetPath the path to the spritesheet
      */
-    public StaticSprite(String spriteSheetPath) {
+    public Sprite(String spriteSheetPath) {
         super("Default_Sprite", new Quad(1, 1));
         this.data = new SpriteData(1, 1, 0);
         init(spriteSheetPath);
@@ -64,7 +62,7 @@ public class StaticSprite extends Geometry implements EntityComponent{
      * @param name the name of this sprite
      * @param spriteSheetPath the path to the spritesheet
      */
-    public StaticSprite(String name, String spriteSheetPath) {
+    public Sprite(String name, String spriteSheetPath) {
         super(name, new Quad(1, 1));
         this.data = new SpriteData(1, 1, 0);
         init(spriteSheetPath);
@@ -77,30 +75,42 @@ public class StaticSprite extends Geometry implements EntityComponent{
      * @param spriteSheetPath the path to the spritesheet
      * @param data The metadata for the sprite
      */
-    public StaticSprite(String name, String spriteSheetPath, SpriteData data) {
+    public Sprite(String name, String spriteSheetPath, SpriteData data) {
         super(name, new Quad(1, 1));
         this.data = data;
         init(spriteSheetPath);
     }
 
-    private void init(String spriteSheetPath) {
-        try {
-            Texture2D spriteSheet = SpriteManager.getInstance().getTexture2D(spriteSheetPath, false);
-            spriteSheet.setWrap(Texture.WrapMode.Repeat);
-            Material mat1;
-            mat1 = SpriteManager.getInstance().GetSpriteMaterial();
-            mat1.setParam("AniTexMap", Texture2D, spriteSheet);
-            mat1.setParam("startingTile", VarType.Int, data.getSpriteIndex());
-            mat1.setParam("numTilesU", VarType.Int, data.getColumns());
-            mat1.setParam("numTilesV", VarType.Int, data.getRows());
-            mat1.setParam("loop", VarType.Int, 0);
-            mat1.setParam("animationLength", VarType.Int, 1);
-            mat1.setParam("Speed", VarType.Int, 0);
-            setMaterial(mat1);
+    /**
+     * Creates a sprite
+     *
+     * @param name the name of this sprite
+     * @param spriteSheet the spritesheet texter
+     * @param data The metadata for the sprite
+     */
+    public Sprite(String name, Texture2D spriteSheet, SpriteData data) {
+        super(name, new Quad(1, 1));
+        this.data = data;
+        init(spriteSheet);
+    }
 
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(StaticSprite.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void init(String spriteSheetPath) {
+        Texture2D spriteSheet = SpriteManager.getInstance().getTexture2D(spriteSheetPath, false);
+        init(spriteSheet);
+    }
+
+    private void init(Texture2D spriteSheet) {
+        spriteSheet.setWrap(Texture.WrapMode.Repeat);
+        Material mat1;
+        mat1 = SpriteManager.getInstance().GetSpriteMaterial();
+        mat1.setParam("AniTexMap", Texture2D, spriteSheet);
+        mat1.setParam("startingTile", VarType.Int, data.getSpriteIndex());
+        mat1.setParam("numTilesU", VarType.Int, data.getColumns());
+        mat1.setParam("numTilesV", VarType.Int, data.getRows());
+        mat1.setParam("loop", VarType.Int, 0);
+        mat1.setParam("animationLength", VarType.Int, 1);
+        mat1.setParam("Speed", VarType.Int, 0);
+        setMaterial(mat1);
     }
 
     /**

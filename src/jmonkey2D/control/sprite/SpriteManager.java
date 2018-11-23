@@ -22,7 +22,9 @@ import com.jme3.texture.Texture2D;
 import java.util.HashMap;
 
 /**
- * This class should be used to load textures in a cached way (share textures across objects, but use individual materials)
+ * This class should be used to load textures in a cached way (share textures
+ * across objects, but use individual materials)
+ *
  * @author DrJavaSaurus <javasaurusdev@gmail.com>
  */
 public class SpriteManager {
@@ -68,13 +70,8 @@ public class SpriteManager {
     /**
      *
      * @return the singleton instance
-     * @throws IllegalAccessException in the event the assetManager wasn't
-     * registered before
      */
-    public static SpriteManager getInstance() throws IllegalAccessException {
-        if (INSTANCE == null) {
-            throw new IllegalAccessException("The asset manager needs to be set in the instance");
-        }
+    public static SpriteManager getInstance() {
         return INSTANCE;
     }
 
@@ -129,6 +126,7 @@ public class SpriteManager {
 
     /**
      * Loads the texture through the assetmanager into the cache
+     *
      * @param spritePaththe path to the spritesheet (example
      * "Textures/MySpriteSheet.png");
      * @return the Texture2D for the given spritesheet

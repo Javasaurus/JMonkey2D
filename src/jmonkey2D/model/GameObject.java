@@ -15,13 +15,14 @@
  */
 package jmonkey2D.model;
 
+import com.jme3.texture.Texture2D;
 import com.simsilica.es.EntityId;
 import jmonkey2D.control.GameObjectPool;
 import jmonkey2D.model.sprites.data.AnimationData;
 import jmonkey2D.model.sprites.data.SpriteData;
 import jmonkey2D.model.physics.RigidBody2D;
 import jmonkey2D.model.sprites.AnimatedSprite;
-import jmonkey2D.model.sprites.StaticSprite;
+import jmonkey2D.model.sprites.Sprite;
 
 /**
  *
@@ -58,8 +59,8 @@ public class GameObject {
      * @param spriteSheetPath the path to the spritesheet
      * @return the attached sprite component
      */
-    public StaticSprite addSprite(String spriteSheetPath) {
-        StaticSprite sprite = new StaticSprite(spriteSheetPath);
+    public Sprite addSprite(String spriteSheetPath) {
+        Sprite sprite = new Sprite(spriteSheetPath);
         gameObjectPool.setComponent(entityID, sprite);
         return sprite;
     }
@@ -71,8 +72,8 @@ public class GameObject {
      * @param spriteSheetPath the path to the spritesheet
      * @return the attached sprite component
      */
-    public StaticSprite addSprite(String name, String spriteSheetPath) {
-        StaticSprite sprite = new StaticSprite(name, spriteSheetPath);
+    public Sprite addSprite(String name, String spriteSheetPath) {
+        Sprite sprite = new Sprite(name, spriteSheetPath);
         gameObjectPool.setComponent(entityID, sprite);
         return sprite;
     }
@@ -86,13 +87,25 @@ public class GameObject {
      * animated)
      * @return the attached sprite component
      */
-    public StaticSprite addSprite(String name, String spriteSheetPath, SpriteData data) {
+    public Sprite addSprite(String name, String spriteSheetPath, SpriteData data) {
 
-        StaticSprite sprite;
+        Sprite sprite;
         if (data instanceof AnimationData) {
             sprite = new AnimatedSprite(name, spriteSheetPath, (AnimationData) data);
         } else {
-            sprite = new StaticSprite(name, spriteSheetPath, data);
+            sprite = new Sprite(name, spriteSheetPath, data);
+        }
+
+        gameObjectPool.setComponent(entityID, sprite);
+        return sprite;
+    }
+
+    public Sprite addSprite(String name, Texture2D tileTexture, SpriteData spriteData) {
+        Sprite sprite;
+        if (spriteData instanceof AnimationData) {
+            sprite = new AnimatedSprite(name, tileTexture, (AnimationData) spriteData);
+        } else {
+            sprite = new Sprite(name, tileTexture, spriteData);
         }
 
         gameObjectPool.setComponent(entityID, sprite);

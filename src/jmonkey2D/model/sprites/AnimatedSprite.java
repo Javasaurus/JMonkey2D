@@ -18,6 +18,7 @@ package jmonkey2D.model.sprites;
 import jmonkey2D.model.sprites.data.AnimationData;
 import com.jme3.material.Material;
 import com.jme3.shader.VarType;
+import com.jme3.texture.Texture2D;
 import java.util.HashMap;
 
 /**
@@ -25,7 +26,7 @@ import java.util.HashMap;
  *
  * @author DrJavaSaurus <javasaurusdev@gmail.com>
  */
-public class AnimatedSprite extends StaticSprite {
+public class AnimatedSprite extends Sprite {
 
     /**
      * A map of animations that can be played (these can then be set at a later
@@ -69,6 +70,18 @@ public class AnimatedSprite extends StaticSprite {
         setAnimation(data);
     }
 
+       /**
+     * Creates a sprite
+     *
+     * @param name the name of this sprite
+     * @param spriteSheet the spritesheet
+     * @param data The metadata for the sprite
+     */
+    public AnimatedSprite(String name, Texture2D spriteSheet, AnimationData data) {
+        super(name, spriteSheet, data);
+        setAnimation(data);
+    }
+    
     /**
      * Adds an animation to the animation pool for this sprite
      *
